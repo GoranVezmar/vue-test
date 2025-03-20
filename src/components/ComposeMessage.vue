@@ -16,15 +16,6 @@ const handleSubmit = (event: Event) => {
 const handleInputChange = (event: Event) => {
   const textarea = event.target as HTMLTextAreaElement
   emit('update:modelValue', textarea?.value)
-
-  // There is a bug here, if the content is scrolled down and textarea expands, the scroll possition on the messages box does not update,
-  // ideally we would want to emit an event to the parent component to scroll to the bottom of the messages box (if it was at the bottom)
-  // if (!textarea) return
-  // textarea.style.height = 'auto'
-  // const minHeight = 36
-  // const maxHeight = 76
-  // const newHeight = Math.max(minHeight, Math.min(maxHeight, textarea.scrollHeight))
-  // textarea.style.height = `${newHeight}px`
 }
 </script>
 
