@@ -24,8 +24,6 @@ const handleSubmit = (event: Event) => {
       @input="emit('update:modelValue', ($event?.target as HTMLTextAreaElement)?.value)"
       @keydown.enter.exact="handleSubmit"
       rows="auto"
-      minrows="1"
-      maxrows="3"
     >
     </textarea>
     <button class="compose-message_button"><v-icon name="ri-send-plane-fill" /></button>
