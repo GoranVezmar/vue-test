@@ -12,6 +12,20 @@ const handleSubmit = (event: Event) => {
   event.preventDefault()
   emit('submit')
 }
+
+const handleInputChange = (event: Event) => {
+  const textarea = event.target as HTMLTextAreaElement
+  emit('update:modelValue', textarea?.value)
+
+  // There is a bug here, if the content is scrolled down and textarea expands, the scroll possition on the messages box does not update,
+  // ideally we would want to emit an event to the parent component to scroll to the bottom of the messages box (if it was at the bottom)
+  // if (!textarea) return
+  // textarea.style.height = 'auto'
+  // const minHeight = 36
+  // const maxHeight = 76
+  // const newHeight = Math.max(minHeight, Math.min(maxHeight, textarea.scrollHeight))
+  // textarea.style.height = `${newHeight}px`
+}
 </script>
 
 <!-- This is compose section -->
@@ -21,9 +35,9 @@ const handleSubmit = (event: Event) => {
       class="compose-message_textarea"
       placeholder="Type your message here..."
       :value="modelValue"
-      @input="emit('update:modelValue', ($event?.target as HTMLTextAreaElement)?.value)"
+      @input="(event) => handleInputChange(event)"
       @keydown.enter.exact="handleSubmit"
-      rows="auto"
+      rows="1"
     >
     </textarea>
     <button class="compose-message_button"><v-icon name="ri-send-plane-fill" /></button>
@@ -45,7 +59,9 @@ const handleSubmit = (event: Event) => {
   border-radius: 4px;
   resize: none;
   overflow-y: auto;
-  line-height: 20px;
+  line-height: 22px;
+  field-sizing: content;
+  max-height: 76px;
 }
 
 .compose-message_button {
